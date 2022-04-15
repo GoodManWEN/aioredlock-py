@@ -2,6 +2,7 @@ import os , sys
 sys.path.append(os.getcwd())
 import pytest
 import aioredis
+import asyncio
 from aioredlock_py import *
 
 @pytest.mark.asyncio
@@ -19,5 +20,6 @@ async def test_basic():
     await redis.set("foo", 0)
     fail_count = [0]
     await asyncio.gather(*(single_thread(redis, fail_count) for _ in range(20)))
-    assert (await redis.get("foo")) == 200
     print(fail_count)
+    assert (await redis.get("foo")) == 200
+    
