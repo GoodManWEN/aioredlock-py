@@ -20,6 +20,5 @@ async def test_basic():
     await redis.set("foo", 0)
     fail_count = [0]
     await asyncio.gather(*(single_thread(redis, fail_count) for _ in range(20)))
-    print(fail_count)
-    assert (await redis.get("foo")) == 200
+    assert int(await redis.get("foo")) == (200 - fail_count[0])
     
