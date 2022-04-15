@@ -17,7 +17,7 @@ def get_install_requires(filename):
     return [x.strip() for x in lines]
 
 # 
-url = 'https://github.com/GoodManWEN/aioredlock_py'
+url = 'https://github.com/GoodManWEN/aioredlock-py'
 release = f'{url}/releases/latest'
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
@@ -28,6 +28,9 @@ headers = {
 
 html = BeautifulSoup(rget(url , headers).text ,'lxml')
 description = html.find('meta' ,{'name':'description'}).get('content')
+for kw in (' - GitHub', ' - GoodManWEN'):
+    if ' - GitHub' in description:
+        description = description[:description.index(' - GitHub')]
 html = BeautifulSoup(rget(release , headers).text ,'lxml')
 logger.info(f"description: {description}")
 
