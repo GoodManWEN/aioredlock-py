@@ -6,26 +6,20 @@
 [![Build](https://github.com/GoodManWEN/aioredlock-py/workflows/Build/badge.svg)](https://github.com/GoodManWEN/aioredlock-py/actions?query=workflow:Build)
 [![Docs](https://readthedocs.org/projects/aioredlock-py/badge/?version=latest)](https://readthedocs.org/projects/aioredlock-py/)
 
-```
-使用方法：
-1、创建新项目
-2、将本项目中除.git外所有文件迁移过去并覆盖
-3、运行初始化脚本
-4、添加pypi token，与pypi连接
-5、添加readthedocs项目，与rtd连接
-over
-```
-Some description.
+Secure and efficient distributed locks implemetation.
 
 ## Requirements
-- pipeit>=0.1.4
+- aioredis>=2.0.0
 
 ## Install
 
     pip install aioredlock-py
 
 ## Feature
-- Some feature.
+- Ensure reliability with context manager.
+- Use lua scripts to ensure atomicity on lock release.
+- Notification prompt you to cancel the following execution if acquisition fails
+- Reliable in high concurrency.
 
 ## Documentation
 https://aioredlock-py.readthedocs.io
@@ -33,8 +27,31 @@ https://aioredlock-py.readthedocs.io
 ## Example
 
 Some description.
-```Python3
-# Some code
+```python
+import asyncio
+import aioredis
+from aioredlock_py import RedLock
+
+async def single_thread():
+    for _ in range(10):
+        async with RedLock(redis, key="no1") as lock:
+            if lock:
+                # Protected service logic
+                await redis.incr("foo")
+            else:
+                # If the lock still fails after several attempts, `__aenter__` 
+                # will return None to prompt you to cancel the following execution
+                print("Call failure")
+                # raise ...
+
+async def main():
+    redis = aioredis.from_url("redis://localhost")
+    await redis.delete("redlock:no1")
+    await redis.set("foo", 0)
+    await asyncio.gather(*(thread(redis) for _ in range(20)))
+    assert (await redis.get("foo")) == 200
+
+asyncio.run(main())
 ```
 
 A test of new branch
