@@ -4,5 +4,5 @@ __version__ = ''
 from .redlock import *
 
 __all__ = (
-    'RedLock'
+    'RedLock',
 )

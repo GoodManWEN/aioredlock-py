@@ -24,9 +24,7 @@ Secure and efficient distributed locks implemetation.
 ## Documentation
 https://aioredlock-py.readthedocs.io
 
-## Example
-
-Some description.
+## Basic usage
 ```python
 import asyncio
 import aioredis
@@ -53,5 +51,3 @@ async def main():
 
 asyncio.run(main())
 ```
-
-A test of new branch
