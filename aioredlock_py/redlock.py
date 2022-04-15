@@ -1,12 +1,15 @@
 import asyncio
 import uuid
 from random import random
-from typing import Any, Literal
+from typing import Any
 from asyncio.exceptions import TimeoutError
 from aioredis.client import Redis
+try:
+    from typing import Literal
+except:
+    from typing_extensions import Literal
 
-Redis=  None
-
+    
 class RedLock:
 
     _scriper = [None, ]
