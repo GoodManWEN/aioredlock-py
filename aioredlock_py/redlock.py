@@ -61,7 +61,7 @@ class RedLock:
             # Based on the frequency distribution of the number of attempts until
             # success, the first three attempts will go very fast, after which each 
             # failure will increase the sleep time until the next attempt.
-            await asyncio.sleep(self._sleepattr_avg * max(0, _ - 2) + random.random() * self._sleepattr_k + self._sleepattr_b)
+            await asyncio.sleep(self._sleepattr_avg * max(0, _ - 2) + random() * self._sleepattr_k + self._sleepattr_b)
         else:
             return None
             # raise TimeoutError()
