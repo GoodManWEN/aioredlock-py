@@ -18,18 +18,18 @@ def get_install_requires(filename):
 
 # 
 url = 'https://github.com/GoodManWEN/aioredlock_py'
-release = f'{{url}}/releases/latest'
-headers = {{
+release = f'{url}/releases/latest'
+headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
     "Connection": "keep-alive",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
     "Accept-Language": "zh-CN,zh;q=0.8"
-}}
+}
 
 html = BeautifulSoup(rget(url , headers).text ,'lxml')
-description = html.find('meta' ,{{'name':'description'}}).get('content')
+description = html.find('meta' ,{'name':'description'}).get('content')
 html = BeautifulSoup(rget(release , headers).text ,'lxml')
-logger.info(f"description: {{description}}")
+logger.info(f"description: {description}")
 
 #
 with open('tagname','r',encoding='utf-8') as f:
@@ -37,7 +37,7 @@ with open('tagname','r',encoding='utf-8') as f:
 if ':' in version:
     version = version[:version.index(':')].strip()
 version = version.strip()
-logger.info(f"version: {{version}}")
+logger.info(f"version: {version}")
 
 #
 with open('README.md','r',encoding='utf-8') as f:
@@ -53,7 +53,7 @@ with open('aioredlock_py/__init__.py','r',encoding='utf-8') as f:
 
 for line in init_content:
     if line == "__version__ = ''\\n":
-        long_description_lines_copy.append(f"__version__ = '{{version}}'\\n")
+        long_description_lines_copy.append(f"__version__ = '{version}'\\n")
     else:
         long_description_lines_copy.append(line)
 
