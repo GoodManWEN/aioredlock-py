@@ -6,7 +6,7 @@
 [![Build](https://github.com/GoodManWEN/aioredlock-py/workflows/Build/badge.svg)](https://github.com/GoodManWEN/aioredlock-py/actions?query=workflow:Build)
 [![Docs](https://readthedocs.org/projects/aioredlock-py/badge/?version=latest)](https://readthedocs.org/projects/aioredlock-py/)
 
-Secure and efficient distributed locks implemetation.
+Secure and efficient distributed locks implemetation. Ensure efficient performance with biased locking's implementation, can load more than 1k/s of concurrent requests with default parameter settings.
 
 ## Requirements
 - aioredis>=2.0.0
