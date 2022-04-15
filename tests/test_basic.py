@@ -15,7 +15,7 @@ async def test_basic():
                 else:
                     fail_count[0] += 1
                     
-    redis = aioredis.from_url("redis://loclahost")
+    redis = aioredis.from_url("redis://127.0.0.1")
     await redis.set("foo", 0)
     fail_count = [0]
     await asyncio.gather(*(single_thread(redis, fail_count) for _ in range(20)))
