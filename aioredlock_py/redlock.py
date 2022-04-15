@@ -53,7 +53,7 @@ class RedLock:
             # Retry after sleep if no lock is obtained. Sleep time is basically random
             # to avoid hotspot issues. The minimum wait time and maximum wait time 
             # can be set by `sleeptime_l` and `sleeptime_h` respectively when creating
-            # the object, who's set default for tasks that take very little time, 
+            # the object, which is set default for tasks that take very little time, 
             # if your code to execute after getting the lock requires somewhat longer 
             # time consuming, then maybe you need to increase the time as appropriate 
             # to reduce unnecessary attempts.
