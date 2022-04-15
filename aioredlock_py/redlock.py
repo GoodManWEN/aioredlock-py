@@ -1,13 +1,16 @@
-import asyncio
+import sys
 import uuid
+import asyncio
 from random import random
 from typing import Any
-from asyncio.exceptions import TimeoutError
 from aioredis.client import Redis
-try:
+
+if sys.version_info >= (3, 8):
     from typing import Literal
-except:
+    from asyncio.exceptions import TimeoutError
+else:
     from typing_extensions import Literal
+    from asyncio import TimeoutError
 
     
 class RedLock:
