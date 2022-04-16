@@ -61,7 +61,7 @@ async def main():
     await redis.set("foo", 0)
     await asyncio.gather(*(single_thread(redis) for _ in range(20)))
     assert int(await redis.get("foo")) == 200
-    # test_long_term_occupancy(redis)
+    # await test_long_term_occupancy(redis)
 
 asyncio.run(main())
 ```
