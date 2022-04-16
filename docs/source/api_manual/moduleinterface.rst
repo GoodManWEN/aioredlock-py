@@ -38,10 +38,12 @@ Module Interface
 
 .. function:: is_locked(self) -> bool
     
-    Check if the lock is currently engaged by the instance itself.
+    Check if the lock is currently engaged by the instance itself.\
 
--- function:: uuid(self) -> str
+    .. versionadded:: 0.1.4
+
+.. function:: uuid(self) -> str
 
     Return self lock identity uuid string.
 	
-    .. versionadded:: 0.1.0
+    .. versionadded:: 0.1.4
