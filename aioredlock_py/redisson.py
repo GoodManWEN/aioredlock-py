@@ -4,7 +4,7 @@ import asyncio
 from random import random
 from typing import Any, Optional
 from aioredis.client import Redis
-from asyncio import TimeoutError
+# from asyncio import TimeoutError
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -95,7 +95,7 @@ class Redisson:
         # user's service logic takes longer than the default lock 
         # release time to avoid being occupied by other threads.
         while True:
-            await asycnio.sleep(self.self._daemon_extend_interval)
+            await asyncio.sleep(self.self._daemon_extend_interval)
             if self._close_triggered:
                 # To deal with special cases where lock release has not 
                 # occurred, ensure that the thread will certainly end 
