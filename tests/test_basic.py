@@ -33,6 +33,6 @@ async def test_long_term_occupancy():
             if not lock: raise
             res = asyncio.get_running_loop().create_task(uuid_equal(lock.uuid()))
             await asyncio.sleep(10)
-        assert res
+        assert res.result()
 
     redis = aioredis.from_url("redis://127.0.0.1")
