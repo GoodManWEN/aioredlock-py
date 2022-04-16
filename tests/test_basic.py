@@ -26,7 +26,7 @@ async def test_basic():
 async def test_long_term_occupancy():
 
     async def uuid_equal(redis, uuid):
-        return assert str(await redis.get("redisson:no2")) == uuid
+        return str(await redis.get("redisson:no2")) == uuid
 
     async def worker():
         async with Redisson(redis, key="no2", ex=5) as lock:
