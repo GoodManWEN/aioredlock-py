@@ -6,7 +6,7 @@
 [![Build](https://github.com/GoodManWEN/aioredlock-py/workflows/Build/badge.svg)](https://github.com/GoodManWEN/aioredlock-py/actions?query=workflow:Build)
 [![Docs](https://readthedocs.org/projects/aioredlock-py/badge/?version=latest)](https://readthedocs.org/projects/aioredlock-py/)
 
-Secure and efficient distributed locks implemetation. Ensure efficient performance with biased locking's implementation, can load more than 1k/s of concurrent requests with default parameter settings.
+Secure and efficient distributed locks (Redisson) implemetation. Ensure efficient performance with biased locking's implementation, can load more than 1k/s of concurrent requests with default parameter settings.
 
 ## Requirements
 - aioredis>=2.0.0
@@ -33,14 +33,14 @@ from aioredlock_py import RedLock
 async def single_thread(redis):
     for _ in range(10):
         async with RedLock(redis, key="no1") as lock:
-            if lock:
-                # Protected service logic
-                await redis.incr("foo")
-            else:
+            if not lock:
                 # If the lock still fails after several attempts, `__aenter__` 
                 # will return None to prompt you to cancel the following execution
-                print("Call failure")
-                # raise ...
+                raise ...
+            # else 
+            # Service logic protected by Redisson
+            await redis.incr("foo")
+
 
 async def main():
     redis = aioredis.from_url("redis://localhost")

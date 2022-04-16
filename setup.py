@@ -85,5 +85,5 @@ setup(
         'Framework :: AsyncIO',
     ],
     python_requires='>=3.7',
-    keywords=["aioredlock_py", "redlock", "redis", "aioredis", "aioredlock", "redis-py"]
+    keywords=["aioredlock_py", "redlock", "redisson", "redis", "aioredis", "aioredlock", "redis-py"]
 )
