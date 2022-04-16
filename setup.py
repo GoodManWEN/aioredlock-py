@@ -47,8 +47,8 @@ with open('README.md','r',encoding='utf-8') as f:
     long_description_lines = f.readlines()
 
 long_description_lines_copy = long_description_lines[:]
-long_description_lines_copy.insert(0,'r"""\\n')
-long_description_lines_copy.append('"""\\n')
+long_description_lines_copy.insert(0,'r"""\n')
+long_description_lines_copy.append('"""\n')
 
 # update __init__ docs
 with open('aioredlock_py/__init__.py','r',encoding='utf-8') as f:
