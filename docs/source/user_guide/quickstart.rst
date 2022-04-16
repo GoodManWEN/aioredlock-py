@@ -26,7 +26,7 @@ Here's a basic example:
 
     import asyncio
     import aioredis
-    from aioredlock_py import RedissonLock
+    from aioredlock_py import Redisson
 
     async def single_thread(redis):
         for _ in range(10):
@@ -40,7 +40,7 @@ Here's a basic example:
                 await redis.incr("foo")
 
     async def test_long_term_occupancy(redis):
-        async with Redisson(redis, key="no1") as lock:
+        async with Redisson(redis, key="no1", ex=10) as lock:
             if not lock: return;
             # Service logic protected by Redisson
             await redis.set("foo", 0)
@@ -59,5 +59,6 @@ Here's a basic example:
         await redis.set("foo", 0)
         await asyncio.gather(*(single_thread(redis) for _ in range(20)))
         assert (await redis.get("foo")) == 200
+        # test_long_term_occupancy(redis)
 
     asyncio.run(main())
