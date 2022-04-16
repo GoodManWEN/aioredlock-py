@@ -22,5 +22,16 @@ async def test_basic():
     await asyncio.gather(*(single_thread(redis, fail_count) for _ in range(20)))
     assert int(await redis.get("foo")) == (200 - fail_count[0])
     
-# @pytest.mark.asyncio
-# async def test_lock
+@pytest.mark.asyncio
+async def test_long_term_occupancy():
+
+    async def uuid_equal(redis, uuid):
+        assert str(await redis.get("redisson:no2")) == uuid
+
+    async def worker():
+        async with Redisson(redis, key="no2", ex=5) as lock:
+            if not lock: raise
+            asyncio.get_running_loop().create_task(uuid_equal(lock.uuid()))
+            await asyncio.sleep(10)
+
+    redis = aioredis.from_url("redis://127.0.0.1")

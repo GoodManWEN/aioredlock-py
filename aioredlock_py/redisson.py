@@ -45,16 +45,18 @@ class Redisson:
         self._daemon_task = None
         self.carry = carry
 
-    def is_locked(self):
+    def is_locked(self) -> bool:
         return self._lock_acquired
+    
+    def uuid(self) -> str:
+        return self._lock_uuid
 
     async def __aenter__(self) -> Optional['Redisson']:
         for _ in range(self._retry_times): # CAS
             lock_status = await self.redis.set(self._lock_key, self._lock_uuid, nx=True, ex=self._ex)
             if lock_status:
                 self._lock_acquired = True
-                loop = asyncio.get_running_loop()
-                self._daemon_task = loop.create_task(self._daemon_thread())
+                self._daemon_task = asyncio.get_running_loop().create_task(self._daemon_thread())
                 break
             # Retry after sleep if no lock is obtained. Sleep time is basically random
             # to avoid hotspot issues. The minimum wait time and maximum wait time 
