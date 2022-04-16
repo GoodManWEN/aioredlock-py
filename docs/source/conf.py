@@ -34,8 +34,8 @@ try:
     # The full version, including alpha/beta/rc tags.
     release = version
 except:
-    version = '0.0.1'
-    release = '0.0.1'
+    version = '0.1.4'
+    release = '0.1.4'
 
 
 # -- General configuration ---------------------------------------------------
