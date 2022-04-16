@@ -26,12 +26,13 @@ async def test_basic():
 async def test_long_term_occupancy():
 
     async def uuid_equal(redis, uuid):
-        assert str(await redis.get("redisson:no2")) == uuid
+        return assert str(await redis.get("redisson:no2")) == uuid
 
     async def worker():
         async with Redisson(redis, key="no2", ex=5) as lock:
             if not lock: raise
-            asyncio.get_running_loop().create_task(uuid_equal(lock.uuid()))
+            res = asyncio.get_running_loop().create_task(uuid_equal(lock.uuid()))
             await asyncio.sleep(10)
+        assert res
 
     redis = aioredis.from_url("redis://127.0.0.1")
