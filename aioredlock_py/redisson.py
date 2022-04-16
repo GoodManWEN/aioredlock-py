@@ -48,7 +48,7 @@ class Redisson:
     def is_locked(self):
         return self._get_lock
 
-    async def __aenter__(self) -> Optional['Radisson']:
+    async def __aenter__(self) -> Optional['Redisson']:
         for _ in range(self._retry_times): # CAS
             lock_status = await self.redis.set(self._lock_key, self._lock_uuid, nx=True, ex=self._ex)
             if lock_status:
