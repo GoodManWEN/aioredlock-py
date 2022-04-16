@@ -10,7 +10,7 @@ async def test_basic():
     
     async def single_thread(redis, fail_count):
         for _ in range(10):
-            async with RedLock(redis, key="no1") as lock:
+            async with Redisson(redis, key="no1") as lock:
                 if lock:
                     await redis.incr("foo")
                 else:
@@ -22,3 +22,5 @@ async def test_basic():
     await asyncio.gather(*(single_thread(redis, fail_count) for _ in range(20)))
     assert int(await redis.get("foo")) == (200 - fail_count[0])
     
+# @pytest.mark.asyncio
+# async def test_lock

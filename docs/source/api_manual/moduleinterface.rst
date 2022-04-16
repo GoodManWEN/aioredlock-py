@@ -28,9 +28,11 @@ Module Interface
 
     .. note::
 
-        Sleep time is basically randomto avoid hotspot issues. The minimum wait time and maximum wait time can be set by `sleeptime_l` and `sleeptime_h` respectively when creating the object, which is set default for tasks that take very little time, if your code to execute after getting the lock requires some what longer time consuming, then maybe you need to increase the time as appropriate to reduce unnecessary attempts.
+        TIPS1: Sleep time is basically randomto avoid hotspot issues. The minimum wait time and maximum wait time can be set by `sleeptime_l` and `sleeptime_h` respectively when creating the object, which is set default for tasks that take very little time, if your code to execute after getting the lock requires some what longer time consuming, then maybe you need to increase the time as appropriate to reduce unnecessary attempts.
         
         Based on the frequency distribution of the number of attempts until success, the first three attempts will go very fast, after which each failure will increase the sleep time until the next attempt.
+
+        TIPS2: There's a background tasks that automatically renew the expire time of redis's lock-key when user's service logic takes longer than the default lock release time to avoid being occupied by other threads. Do make sure that your custom code does not have any actions that will cause the event loop to block. All IO/computing tasks that potentially lead to blocking should be circumvented with a corresponding solution.
 
     .. versionadded:: 0.1.0
 

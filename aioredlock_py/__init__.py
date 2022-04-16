@@ -1,8 +1,8 @@
 __author__ = 'WEN (github.com/GoodManWEN)'
 __version__ = ''
 
-from .redlock import *
+from .redisson import *
 
 __all__ = (
-    'RedLock',
+    'Redisson',
 )
